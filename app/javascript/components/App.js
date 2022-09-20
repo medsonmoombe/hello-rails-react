@@ -1,9 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Greeting from './Greeting'
+
 
 const App = () => {
   return (
-    <div>Hello rails react</div>
-  )
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Greeting/>} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
