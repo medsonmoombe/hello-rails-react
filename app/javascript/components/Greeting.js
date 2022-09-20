@@ -17,7 +17,6 @@ const Greeting = () => {
 
   const { greeting, loading, error } = useSelector((state) => state.greetings)
 
-  console.log(greeting);
   return (
     <>
     <p>{greeting}</p>
