@@ -1,38 +1,28 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// First, create the thunk
-export const fetchGreetings = createAsyncThunk(
-  'greetings/fetchByIdStatus', async () => {
-    const response = await axios.get('/api/v1/greetings')
-    const { greetings } = await response.json;
-    return greetings;
-  }
-)
+export const fetchGreetings = createAsyncThunk("fetchGreetings", async () => {
+  const response = await fetch("/api/v1/greetings");
+  const { greeting } = await response.json();
+  return greeting;
+});
 
-
-// Then, handle actions in your reducers:
-const greetingSlice = createSlice({
-  name: 'greetings',
+export const greetingSlice = createSlice({
+  name: "greetings",
   initialState: {
     greeting: "",
     loading: false,
     error: false,
   },
-  reducers: {
-    // standard reducer logic, with auto-generated action types per reducer
-  },
-  extraReducers: () => {
-    // Add reducers for additional action types here, and handle loading state as needed
-   (fetchGreetings.fulfilled, (state, action) => {
-      // Add user to the state array
+  reducers: {},
+  extraReducers: {
+    [fetchGreetings.fulfilled]: (state, action) => {
       const newState = {
-       ...state, greeting: action.payload
-      }
+        ...state,
+        greeting: action.payload,
+      };
       return newState;
-    });
+    },
   },
-})
+});
 
-// Later, export the greetingSlice
 export default greetingSlice.reducer;

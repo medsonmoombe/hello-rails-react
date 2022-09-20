@@ -4,12 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGreetings } from '../store/GreetingsReducer';
 
 const Greeting = () => {
+  
+  const dispatch = useDispatch();
 
-  const { greeting } = useSelector((state)=> state.greetings);
+  useEffect(() => {
+   dispatch(fetchGreetings())
+  },[])
+
+  const hundleGreetings = () => {
+    dispatch(fetchGreetings())
+  }
+
+  const { greeting, loading, error } = useSelector((state) => state.greetings)
+
+  console.log(greeting);
   return (
     <>
     <p>{greeting}</p>
-    <button>Random Greeting</button>
+    <button onClick={hundleGreetings}>Random Greeting</button>
     </>
   )
 }
